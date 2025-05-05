@@ -1,4 +1,4 @@
-package com.teaxis.api.controller;
+package com.teaxis.api.Controller;
 
 import com.teaxis.api.model.Profissional;
 import com.teaxis.api.service.ProfissionalService;

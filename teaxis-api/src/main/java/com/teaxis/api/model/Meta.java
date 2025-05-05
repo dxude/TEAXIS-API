@@ -16,4 +16,8 @@ public class Meta {
     private String descricao;
 
     private Double progresso;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id") 
+    private Usuario usuario;  
 }
