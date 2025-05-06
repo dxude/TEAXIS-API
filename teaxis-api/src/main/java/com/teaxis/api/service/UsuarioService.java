@@ -44,4 +44,20 @@ public class UsuarioService {
         Usuario usuario = repository.findById(id).orElseThrow();
         return usuario.getAvaliacoesFeitas();
     }
+
+    public Usuario atualizar(Long id, Usuario usuarioAtualizado) {
+        return repository.findById(id)
+            .map(usuarioExistente -> {
+                if (usuarioAtualizado.getNome() != null) {
+                    usuarioExistente.setNome(usuarioAtualizado.getNome());
+                }
+                if (usuarioAtualizado.getEmail() != null) {
+                    usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+                }
+        
+                
+                return repository.save(usuarioExistente);
+            })
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + id));
+    }
 }

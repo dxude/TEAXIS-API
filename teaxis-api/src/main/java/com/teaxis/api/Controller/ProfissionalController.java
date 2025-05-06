@@ -3,6 +3,7 @@ package com.teaxis.api.Controller;
 import com.teaxis.api.model.Profissional;
 import com.teaxis.api.service.ProfissionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,14 @@ public class ProfissionalController {
     @GetMapping("/{id}")
     public Profissional buscar(@PathVariable Long id) {
         return service.buscarPorId(id);
+    }
+
+    @PutMapping("/{id}")  // Método para atualização
+    public ResponseEntity<Profissional> atualizar(
+            @PathVariable Long id,
+            @RequestBody Profissional profissionalAtualizado) {
+        Profissional profissional = service.atualizar(id, profissionalAtualizado);
+        return ResponseEntity.ok(profissional);
     }
 
     @DeleteMapping("/{id}")

@@ -3,6 +3,7 @@ package com.teaxis.api.Controller;
 import com.teaxis.api.model.Meta;
 import com.teaxis.api.service.MetaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,4 +39,12 @@ public class MetaController {
     public List<Meta> metasComProgressoMaior(@RequestParam Double valor) {
         return service.buscarComProgressoMaiorQue(valor);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Meta> atualizar(@PathVariable Long id, @RequestBody Meta metaAtualizada) {
+        Meta atualizado = service.atualizar(id, metaAtualizada);
+        return ResponseEntity.ok(atualizado);
+    }
+    
+
 }

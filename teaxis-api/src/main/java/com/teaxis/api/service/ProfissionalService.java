@@ -25,6 +25,20 @@ public class ProfissionalService {
         return repository.findById(id).orElse(null);
     }
 
+    public Profissional atualizar(Long id, Profissional profissionalAtualizado) {
+        return repository.findById(id)
+            .map(profissionalExistente -> {
+                if (profissionalAtualizado.getNome() != null) {
+                    profissionalExistente.setNome(profissionalAtualizado.getNome());
+                }
+                if (profissionalAtualizado.getEspecialidade() != null) {
+                    profissionalExistente.setEspecialidade(profissionalAtualizado.getEspecialidade());
+                }
+                return repository.save(profissionalExistente);
+            })
+            .orElseThrow(() -> new RuntimeException("Profissional não encontrado"));
+    }
+
     public void deletar(Long id) {
         repository.deleteById(id);
     }

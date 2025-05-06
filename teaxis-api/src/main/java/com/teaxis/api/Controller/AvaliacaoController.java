@@ -3,6 +3,7 @@ package com.teaxis.api.Controller;
 import com.teaxis.api.model.Avaliacao;
 import com.teaxis.api.service.AvaliacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,4 +39,14 @@ public class AvaliacaoController {
     public List<Avaliacao> buscarNotasMaiores(@RequestParam Integer nota) {
         return service.buscarNotasAltas(nota);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Avaliacao> atualizarAvaliacao(
+            @PathVariable Long id,
+            @RequestBody Avaliacao avaliacaoAtualizada) {
+        
+        Avaliacao avaliacao = service.atualizar(id, avaliacaoAtualizada);
+        return ResponseEntity.ok(avaliacao);
+    }
+
 }

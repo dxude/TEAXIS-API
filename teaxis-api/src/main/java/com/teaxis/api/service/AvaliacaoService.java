@@ -32,4 +32,20 @@ public class AvaliacaoService {
     public List<Avaliacao> buscarNotasAltas(Integer nota) {
         return repository.findByNotaGreaterThan(nota);
     }
+
+    public Avaliacao atualizar(Long id, Avaliacao avaliacaoAtualizada) {
+        return repository.findById(id)
+            .map(avaliacaoExistente -> {
+                if (avaliacaoAtualizada.getComentario() != null) {
+                    avaliacaoExistente.setComentario(avaliacaoAtualizada.getComentario());
+                }
+                if (avaliacaoAtualizada.getNota() != 0) { 
+                    avaliacaoExistente.setNota(avaliacaoAtualizada.getNota());
+                }
+                return repository.save(avaliacaoExistente);
+            })
+            .orElseThrow(() -> new RuntimeException("Avaliação não encontrada"));
+    }
+
+    
 }
