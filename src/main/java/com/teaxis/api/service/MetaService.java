@@ -1,6 +1,7 @@
 package com.teaxis.api.service;
 
 import com.teaxis.api.model.Meta;
+import com.teaxis.api.model.Usuario;
 import com.teaxis.api.repository.MetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,12 @@ public class MetaService {
     }
 
     public Meta salvar(Meta meta) {
+
+        Long usuarioId = meta.getUsuario().getId();
+        Usuario usuarioCompleto = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + usuarioId));
+
+        meta.setUsuario(usuarioCompleto);
         return repository.save(meta);
     }
 
