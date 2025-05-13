@@ -1,5 +1,6 @@
 package com.teaxis.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,12 +18,13 @@ public class Avaliacao {
 
     private Integer nota;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
+    @JsonIgnoreProperties({"avaliacoesFeitas", "metas"}) 
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profissional_id")
+    @JsonIgnoreProperties({"avaliacoesRecebidas", "especialidade"}) 
     private Profissional profissional;
 }
-
